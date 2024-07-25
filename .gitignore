@@ -4,4 +4,4 @@ backend/node_modules/
 
 # Ignore environmental variables in both frontend and backend folders
 frontend/.env
-backend/config/config.env
+backend/.env
