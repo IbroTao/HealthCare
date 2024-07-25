@@ -1,0 +1,42 @@
+{
+  "name": "health-care",
+  "version": "1.0.0",
+  "description": "A full-stack hospital website catering for quick and prompt patient healthcare and medical staff welfare",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server,js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IbroTao/HealthCarehttps:.git"
+  },
+  "keywords": [
+    "nodejs",
+    "react",
+    "mongodb",
+    "express",
+    "javascript"
+  ],
+  "author": "Ibrahim Taofeek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IbroTao/HealthCarehttps:/issues"
+  },
+  "homepage": "https://github.com/IbroTao/HealthCarehttps:#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.3.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.5.1",
+    "jsonwebtoken": "^9.0.2",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
