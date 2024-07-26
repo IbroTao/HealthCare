@@ -21,9 +21,13 @@ const messageSchema = new mongoose.Schema({
         type: Number,
         required: true,
         minlength: [11, "Phone Number Must Contain 11 Digits!"],
-        maxlength: [11, "Phone Number Must Contain 11 Digits!"]
+        maxlength: [11, "Phone Number Must Contain Exactly 11 Digits!"]
     },
     message: {
         type: String,
+        required: true,
+        minlength: [10, "Message Must Contain At Least 10 Characters!"]
     }
-}) 
+});
+
+export const Message = mongoose.model("Message", messageSchema)
