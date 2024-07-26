@@ -1,7 +1,9 @@
 import mongoose from "mongoose"
 
-const mongoConnect = () => {
-    return mongoose.connect(process,env.MONGO_URI)
-};
-
-export default mongoConnect;
+export const dbConnect = () => {
+    mongoose.connect(process.env.MONGO_URL).then(() => {
+        console.log('Connected to database')
+    }).catch((err) => {
+        console.log(`Error while connecting to the database: ${err}`)
+    })
+}
