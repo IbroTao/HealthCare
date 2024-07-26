@@ -3,6 +3,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import fileUploader from "express-fileupload"
 import { dbConnect } from "./database/dbConnect.js";
+import messageRouter from "./routes/messageRoutes.js";
 
 dbConnect();
 
@@ -26,5 +27,6 @@ app.use(fileUploader({
     tempFileDir: "/tmp/"
 }))
 
+app.use("/api/v1/message", messageRouter)
 
 export default app;
