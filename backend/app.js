@@ -2,9 +2,10 @@ import express from "express";
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import fileUploader from "express-fileupload"
-import mongoConnect from "./database/dbConnect.js";
+import { dbConnect } from "./database/dbConnect.js";
 
-const port = process.env.PORT;
+dbConnect();
+
 const app = express();
 
 
@@ -25,19 +26,5 @@ app.use(fileUploader({
     tempFileDir: "/tmp/"
 }))
 
-mongoConnect()
 
-const runApp = (port) => {
-    mongoConnect().then(
-        res=>{
-            app.listen(port);
-            console.log()
-        }
-    ).catch(
-        err=>{
-            console.log(err);
-        }
-    )
-}
-runApp(port);
 export default app;
