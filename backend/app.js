@@ -1,11 +1,11 @@
 import express from "express";
-import {config} from "dotenv"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import fileUploader from "express-fileupload"
+import mongoConnect from "./database/dbConnect.js";
 
+const port = process.env.PORT;
 const app = express();
-config({path: ".env"});
 
 
 app.use(
@@ -22,7 +22,22 @@ app.use(express.urlencoded({extended: true}))
 
 app.use(fileUploader({
     useTempFiles: true,
-    tempFileDir: "/tmp"
+    tempFileDir: "/tmp/"
 }))
 
+mongoConnect()
+
+const runApp = (port) => {
+    mongoConnect().then(
+        res=>{
+            app.listen(port);
+            console.log()
+        }
+    ).catch(
+        err=>{
+            console.log(err);
+        }
+    )
+}
+runApp(port);
 export default app;
