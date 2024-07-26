@@ -19,3 +19,12 @@ export const sendMessage = async(req, res, next) => {
         res.status(500).json({err})
     }
 }
+
+export const getMessage = async(req, res) => {
+    try{
+
+    }
+    catch(err){
+        res.status(500).json({err})
+    }
+}
