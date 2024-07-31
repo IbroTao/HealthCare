@@ -1,1 +1,1 @@
-export const generateToken = () => {}
+export const generateToken = (user, message, statusCode, res) => {}

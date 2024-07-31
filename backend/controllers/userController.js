@@ -1,6 +1,7 @@
 import {catcAsyncErrors} from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/errorMiddlewares.js";
 import { User } from "../models/userModel.js";
+import {generateToken} from "../utils/jwtToken.js"
 
 export const registerPatient = catcAsyncErrors(async(req, res, next) => {
         const {firstName, lastName, phone, email, password, dob, nic, role, gender} = req.body;
@@ -24,10 +25,7 @@ export const registerPatient = catcAsyncErrors(async(req, res, next) => {
             gender,
             phone
         });
-        res.status(201).json({
-            success: true,
-            message: "User registered!",
-        }) 
+        generateToken(user, "User Registered!", 200, res)
 });
 
 export const loginPatient = catcAsyncErrors(async(req, res, next) =>  {
@@ -54,8 +52,5 @@ export const loginPatient = catcAsyncErrors(async(req, res, next) =>  {
         return next(new ErrorHandler(`User With ${role} Role Not Found!`, 400))
     }
 
-    res.status(200).json({
-        success: true,
-        message: "User Logged In Successfully!"
-    })
+    generateToken(user, "User Logged In Successfully!", 200, res)
 })
