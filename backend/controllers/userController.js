@@ -24,7 +24,7 @@ export const registerPatient = catcAsyncErrors(async(req, res, next) => {
             gender,
             phone
         });
-        res.status(200).json({
+        res.status(201).json({
             success: true,
             message: "User registered!",
         }) 
@@ -39,4 +39,20 @@ export const loginPatient = catcAsyncErrors(async(req, res, next) =>  {
     if(password !== confirmPassword) {
         return next(ErrorHandler("Passwords Does Not Match", 400))
     }
+
+    const user = await User.findOne({email}).select("+password");
+    if(!user) {
+        return next(new ErrorHandler("Invalid Password Or Email!", 400))
+    }
+
+    const isPasswordMatched = await user.comparePassword(password);
+    if(!isPasswordMatched) {
+        return next(new ErrorHandler("Invalid Email Or Password", 400))
+    }
+
+    if(role !== user.role){
+        return next(new ErrorHandler(`User With ${role} Not Found!`, 400))
+    }
+
+    res.status(200)
 })
