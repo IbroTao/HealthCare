@@ -54,3 +54,7 @@ export const loginPatient = catcAsyncErrors(async(req, res, next) =>  {
 
     generateToken(user, "User Logged In Successfully!", 200, res)
 })
+
+export const addAdmin = catcAsyncErrors(async(req, res, next) => {
+    const {firstName, lastName, email, password}
+})
