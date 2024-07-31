@@ -54,5 +54,8 @@ export const loginPatient = catcAsyncErrors(async(req, res, next) =>  {
         return next(new ErrorHandler(`User With ${role} Not Found!`, 400))
     }
 
-    res.status(200)
+    res.status(200).json({
+        success: true,
+        message: "User Logged In Successfully!"
+    })
 })
