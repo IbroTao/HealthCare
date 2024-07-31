@@ -67,7 +67,7 @@ export const addAdmin = catcAsyncErrors(async(req, res, next) => {
     };
 
     const admin = await User.create({
-        firstName, lastName, email, password, phone, dob, gender, nic
+        firstName, lastName, email, password, phone, dob, gender, nic, role: "Admin"
     });
 
     res.status(200).json({
