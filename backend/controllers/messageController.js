@@ -12,7 +12,7 @@ export const sendMessage = catcAsyncErrors(async(req, res, next) => {
         res.status(200).json({
             success: true,
             message: "Message Send Successful"
-        })
+        })  
     }
     catch(err){
         res.status(500).json({err})
