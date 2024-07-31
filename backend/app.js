@@ -1,9 +1,17 @@
+// PACKAGES CONFIGURATION
 import express from "express";
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import fileUploader from "express-fileupload"
+
+// DATABASE CONFIGURATION
 import { dbConnect } from "./database/dbConnect.js";
+
+// ROUTES CONFIGURATION
 import messageRouter from "./routes/messageRoutes.js";
+import userRouter from "./routes/userRouter.js"
+
+// MIDDLEWARE CONFIGURATION
 import { errorMiddleware } from "./middlewares/errorMiddlewares.js";
 
 dbConnect();
@@ -28,7 +36,8 @@ app.use(fileUploader({
     tempFileDir: "/tmp/"
 }))
 
-app.use("/api/v1/message", messageRouter)
+app.use("/api/v1/message", messageRouter);
+app.use('/api/v1/user', userRouter)
 
 app.use(errorMiddleware);
 export default app;
