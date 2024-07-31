@@ -33,11 +33,11 @@ export const registerPatient = catcAsyncErrors(async(req, res, next) => {
 export const loginPatient = catcAsyncErrors(async(req, res, next) =>  {
     const {email, password, confirmPassword, role} = req.body;
     if(!email || !password || !confirmPassword || !role) {
-        return next(ErrorHandler("Please Provide All Details", 400))
+        return next(new ErrorHandler("Please Provide All Details", 400))
     }
 
     if(password !== confirmPassword) {
-        return next(ErrorHandler("Passwords Does Not Match", 400))
+        return next(new ErrorHandler("Passwords Does Not Match", 400))
     }
 
     const user = await User.findOne({email}).select("+password");
