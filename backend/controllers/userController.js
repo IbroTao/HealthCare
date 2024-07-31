@@ -22,5 +22,9 @@ export const registerPatient = catcAsyncErrors(async(err, req, res) => {
         nic,
         role,
         gender
+    });
+    res.status(200).json({
+        success: true,
+        message: "User registered!"
     })
 })
