@@ -1,6 +1,7 @@
 import { Message } from "../models/messageModel.js";
+import {catcAsyncErrors} from "../middlewares/catchAsyncErrors.js"
 
-export const sendMessage = async(req, res, next) => {
+export const sendMessage = catcAsyncErrors(async(req, res, next) => {
     try{
         const {firstName, lastName, email, phone, message} = req.body;
         if(!firstName || !lastName || !email || !phone || !message) {
@@ -18,5 +19,5 @@ export const sendMessage = async(req, res, next) => {
     catch(err){
         res.status(500).json({err})
     }
-}
+})
 
