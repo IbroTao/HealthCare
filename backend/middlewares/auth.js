@@ -1,4 +1,4 @@
-
+import {User} from "../models/userModel.js"
 import {catcAsyncErrors} from "./catchAsyncErrors.js";
 import ErrorHandler from "./errorMiddlewares.js";
 import jwt from "jsonwebtoken"
@@ -10,5 +10,9 @@ export const isAdminAuthenticated = catcAsyncErrors(async(err, req, res, next) =
     }
 
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    req.user = await User
+    req.user = await User.findById(decodedToken.id);
+    
+    if(req.user.role !== "Admin") {
+        return next(new ErrorHandler(`${}`))
+    }
 })
