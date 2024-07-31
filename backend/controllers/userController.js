@@ -2,7 +2,7 @@ import {catcAsyncErrors} from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/errorMiddlewares.js";
 import { User } from "../models/userModel.js";
 
-export const registerPatient = catcAsyncErrors(async(err, req, res) => {
+export const registerPatient = catcAsyncErrors(async(req, res, next) => {
     const {firstName, lastName, phone, email, password, dob, nic, role, gender} = req.body;
     if(!firstName || !lastName || !phone || !email || !password || !dob || !nic || role || !gender) {
         return next(new ErrorHandler("Please Fill Full Form", 400))
