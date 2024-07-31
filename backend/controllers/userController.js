@@ -27,6 +27,16 @@ export const registerPatient = catcAsyncErrors(async(req, res, next) => {
         res.status(200).json({
             success: true,
             message: "User registered!",
-            user: user
         }) 
+});
+
+export const loginPatient = catcAsyncErrors(async(req, res, next) =>  {
+    const {email, password, confirmPassword, role} = req.body;
+    if(!email || !password || !confirmPassword || !role) {
+        return next(ErrorHandler("Please Provide All Details", 400))
+    }
+
+    if(password !== confirmPassword) {
+        return next(ErrorHandler("Passwords Does Not Match", 400))
+    }
 })
