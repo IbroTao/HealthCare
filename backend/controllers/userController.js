@@ -61,5 +61,17 @@ export const addAdmin = catcAsyncErrors(async(req, res, next) => {
         return next(new ErrorHandler("Please Fill Full Form", 400));
     }
 
-    const isRegistered = await User.findOne({email}).select("+password")
+    const isRegistered = await User.findOne({email}).select("+password");
+    if(isRegistered) {
+        return next(new ErrorHandler("Admin With This Email Already Exists!", 400))
+    };
+
+    const admin = await User.create({
+        firstName, lastName, email, password, phone, dob, gender, nic
+    });
+
+    res.status(200).json({
+        success: true,
+        message: "New Admin Registered!"
+    })
 })
