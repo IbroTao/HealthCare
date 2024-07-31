@@ -56,5 +56,10 @@ export const loginPatient = catcAsyncErrors(async(req, res, next) =>  {
 })
 
 export const addAdmin = catcAsyncErrors(async(req, res, next) => {
-    const {firstName, lastName, email, password}
+    const {firstName, lastName, email, password, phone, gender, dob, nic} = req.body;
+    if(!firstName || !lastName || !email || !password || !phone || !gender || !dob || !nic) {
+        return next(new ErrorHandler("Please Fill Full Form", 400));
+    }
+
+    const isRegistered = await User.findOne({email}).select("+password")
 })
