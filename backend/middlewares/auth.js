@@ -13,6 +13,6 @@ export const isAdminAuthenticated = catcAsyncErrors(async(err, req, res, next) =
     req.user = await User.findById(decodedToken.id);
     
     if(req.user.role !== "Admin") {
-        return next(new ErrorHandler(`${}`))
+        return next(new ErrorHandler(`${req.user.role} not authorized for this resources!`))
     }
 })
