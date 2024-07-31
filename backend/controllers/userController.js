@@ -3,13 +3,12 @@ import ErrorHandler from "../middlewares/errorMiddlewares.js";
 import { User } from "../models/userModel.js";
 
 export const registerPatient = catcAsyncErrors(async(req, res, next) => {
-    try {
         const {firstName, lastName, phone, email, password, dob, nic, role, gender} = req.body;
-        if(!firstName || !lastName || !phone || !email || !password || !dob || !nic || role || !gender) {
+        if(!firstName || !lastName || !phone || !email || !password || !dob || !nic || !role || !gender) {
             return next(new ErrorHandler("Please Fill Full Form", 400))
         }
     
-        const user = await User.findOne({email});
+        let user = await User.findOne({email});
         if(user) {
             return next(new ErrorHandler("User Already Registered!", 400))
         } 
@@ -30,7 +29,4 @@ export const registerPatient = catcAsyncErrors(async(req, res, next) => {
             message: "User registered!",
             user: user
         }) 
-    } catch (error) {
-        res.send(500).json({error})
-    }
 })
