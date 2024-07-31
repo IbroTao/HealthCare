@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -43,7 +44,27 @@ const userSchema = new mongoose.Schema({
         required: true,
         minLength: [5, "Phone Number Must Contain At Least 5 Characters!"],
         maxLength: [8, "Phone Number Must Contain Exact 8 Characters!"],
+        select: false
+    },
+    role: {
+        type: String,
+        required: true,
+        enum: ["Admin", "Doctor", "Patient"]
+    },
+    doctorDepartment: {
+        type: String
+    },
+    docAvatar: {
+        public_id: String,
+        url: String
     }
+})
+
+userSchema.pre("save", async function(next) {
+    if(this.isModified("password")) {
+        next();
+    }
+    this.password = await bcrypt.hash(this.password, 10)
 })
 
 export const User = mongoose.model("User", userSchema)
