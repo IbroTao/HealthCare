@@ -1,9 +1,9 @@
 import {User} from "../models/userModel.js"
-import {catcAsyncErrors} from "./catchAsyncErrors.js";
+import {catchAsyncErrors} from "./catchAsyncErrors.js";
 import ErrorHandler from "./errorMiddlewares.js";
 import jwt from "jsonwebtoken"
 
-export const isAdminAuthenticated = catcAsyncErrors(async(req, res, next) => {
+export const isAdminAuthenticated = catchAsyncErrors(async(req, res, next) => {
     const token = req.cookies.adminToken;
     if(!token) {
         return next(new ErrorHandler("Admin Not Authenticated!", 400))
@@ -18,7 +18,7 @@ export const isAdminAuthenticated = catcAsyncErrors(async(req, res, next) => {
     next();
 })
 
-export const isPatientAuthenticated = catcAsyncErrors(async(req, res, next) => {
+export const isPatientAuthenticated = catchAsyncErrors(async(req, res, next) => {
     const token = req.cookies.patientToken;
     if(!token) {
         return next(new ErrorHandler("Patient Not Authenticated!", 400))

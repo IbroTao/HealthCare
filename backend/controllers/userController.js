@@ -1,9 +1,9 @@
-import {catcAsyncErrors} from "../middlewares/catchAsyncErrors.js";
+import {catchAsyncErrors} from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/errorMiddlewares.js";
 import { User } from "../models/userModel.js";
 import {generateToken} from "../utils/jwtToken.js"
 
-export const registerPatient = catcAsyncErrors(async(req, res, next) => {
+export const registerPatient = catchAsyncErrors(async(req, res, next) => {
         const {firstName, lastName, phone, email, password, dob, nic, role, gender} = req.body;
         if(!firstName || !lastName || !phone || !email || !password || !dob || !nic || !role || !gender) {
             return next(new ErrorHandler("Please Fill Full Form", 400))
@@ -28,7 +28,7 @@ export const registerPatient = catcAsyncErrors(async(req, res, next) => {
         generateToken(user, "User Registered!", 200, res)
 });
 
-export const loginPatient = catcAsyncErrors(async(req, res, next) =>  {
+export const loginPatient = catchAsyncErrors(async(req, res, next) =>  {
     const {email, password, confirmPassword, role} = req.body;
     if(!email || !password || !confirmPassword || !role) {
         return next(new ErrorHandler("Please Provide All Details", 400))
@@ -55,7 +55,7 @@ export const loginPatient = catcAsyncErrors(async(req, res, next) =>  {
     generateToken(user, "User Logged In Successfully!", 200, res)
 })
 
-export const addAdmin = catcAsyncErrors(async(req, res, next) => {
+export const addAdmin = catchAsyncErrors(async(req, res, next) => {
     const {firstName, lastName, email, password, phone, gender, dob, nic} = req.body;
     if(!firstName || !lastName || !email || !password || !phone || !gender || !dob || !nic) {
         return next(new ErrorHandler("Please Fill Full Form", 400));
@@ -76,7 +76,7 @@ export const addAdmin = catcAsyncErrors(async(req, res, next) => {
     })
 })
 
-export const getAllDoctors = catcAsyncErrors(async(req, res, next) => {
+export const getAllDoctors = catchAsyncErrors(async(req, res, next) => {
     const doctors = await User.findOne({role: "Doctor"});
     if(!doctors) {
         return next(new ErrorHandler("Doctors Not Found", 404))
@@ -94,4 +94,5 @@ export const getUserDetails = catchAsyncErrors(async(req, res, next) => {
         success: true,
         user
     })
-})
+});
+
