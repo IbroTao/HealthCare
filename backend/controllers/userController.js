@@ -75,3 +75,15 @@ export const addAdmin = catcAsyncErrors(async(req, res, next) => {
         message: "New Admin Registered!"
     })
 })
+
+export const getAllDoctors = catcAsyncErrors(async(req, res, next) => {
+    const doctors = await User.findOne({role: "Doctor"});
+    if(!doctors) {
+        return next(new ErrorHandler("Doctors Not Found", 404))
+    }
+
+    res.status(200).json({
+        success: true,
+        doctors
+    })
+})
