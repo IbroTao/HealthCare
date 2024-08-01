@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import fileUploader from "express-fileupload"
+import dotenv from "dotenv";
+import cloudinary from "cloudinary";
 
 // DATABASE CONFIGURATION
 import { dbConnect } from "./database/dbConnect.js";
@@ -14,10 +16,22 @@ import userRouter from "./routes/userRouter.js"
 // MIDDLEWARE CONFIGURATION
 import { errorMiddleware } from "./middlewares/errorMiddlewares.js";
 
-dbConnect();
+// CLOUDINARY CONFIGURATION
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
+dotenv.config();
+dbConnect();
+const port = process.env.PORT
 const app = express();
 
+
+app.listen(process.env.PORT, ()=> {
+    console.log(`App is running on PORT ${port}`);
+})
 
 app.use(
     cors({
