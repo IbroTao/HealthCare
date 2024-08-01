@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/patient/new', registerPatient);
 router.post('/login', loginPatient);
 router.post('/admin/new', isAdminAuthenticated, addAdmin);
-router.post('/doctor/new', addNewDoctor)
+router.post('/doctor/new', isAdminAuthenticated, addNewDoctor)
 
 // GET ROUTES
 router.get('/doctors', getAllDoctors);
