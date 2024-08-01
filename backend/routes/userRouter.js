@@ -5,9 +5,10 @@ import {isAdminAuthenticated, isPatientAuthenticated} from "../middlewares/auth.
 const router = express.Router();
 
 // POST ROUTES
-router.post('/patient/register', registerPatient);
+router.post('/patient/new', registerPatient);
 router.post('/login', loginPatient);
 router.post('/admin/new', isAdminAuthenticated, addAdmin);
+router.post('/doctor/new', )
 
 // GET ROUTES
 router.get('/doctors', getAllDoctors);
