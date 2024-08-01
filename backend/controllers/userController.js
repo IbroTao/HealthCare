@@ -125,5 +125,15 @@ export const addNewDoctor = catchAsyncErrors(async(req, res, next) => {
     if(!allowedFormats.includes(docAvatar.mimetype)){
         return next(new ErrorHandler("File Format Not Supported!", 400));
     }
+
+    const {firstName, lastName, email, password, phone, gender, dob, nic, doctorDepartment} = req.body;
+    if(!firstName || !lastName || !email || !password || !phone || !gender || !dob || !nic || !doctorDepartment) {
+        return next(new ErrorHandler("Please Fill Full Form!", 400))
+    };
+
+    const isRegistered = await User.findOne({email});
+    if(isRegistered) {
+        
+    }
 })
 
