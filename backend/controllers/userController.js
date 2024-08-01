@@ -133,7 +133,7 @@ export const addNewDoctor = catchAsyncErrors(async(req, res, next) => {
 
     const isRegistered = await User.findOne({email});
     if(isRegistered) {
-        
+        return next(new ErrorHandler(`${isRegistered.role} already registered with this email`, 400))
     }
 })
 
