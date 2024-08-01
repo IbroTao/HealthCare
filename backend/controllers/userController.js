@@ -1,7 +1,8 @@
 import {catchAsyncErrors} from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/errorMiddlewares.js";
 import { User } from "../models/userModel.js";
-import {generateToken} from "../utils/jwtToken.js"
+import {generateToken} from "../utils/jwtToken.js";
+import cloudinary from "cloudinary";
 
 export const registerPatient = catchAsyncErrors(async(req, res, next) => {
         const {firstName, lastName, phone, email, password, dob, nic, role, gender} = req.body;
@@ -134,6 +135,13 @@ export const addNewDoctor = catchAsyncErrors(async(req, res, next) => {
     const isRegistered = await User.findOne({email});
     if(isRegistered) {
         return next(new ErrorHandler(`${isRegistered.role} already registered with this email`, 400))
+    }
+
+    const cloudinaryResponse = await cloudinary.v2.uploader.upload(
+        docAvatar.tempFilePath
+    );
+    if(!cloudinaryResponse || cloudinaryResponse.error){
+        console.error("Cloudinary Error:", cloudinaryResponse.error || "Unknown Cloudinary Error")
     }
 })
 
