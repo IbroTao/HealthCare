@@ -143,5 +143,28 @@ export const addNewDoctor = catchAsyncErrors(async(req, res, next) => {
     if(!cloudinaryResponse || cloudinaryResponse.error){
         console.error("Cloudinary Error:", cloudinaryResponse.error || "Unknown Cloudinary Error")
     }
+
+    const doctor = await User.create({
+        firstName,
+        lastName,
+        password, 
+        email, 
+        phone,
+        dob,
+        nic,
+        doctorDepartment,
+        gender,
+        role: "Doctor",
+        docAvatar: {
+            public_id: cloudinaryResponse.public_id,
+            url: cloudinaryResponse.secure_url,
+        }
+    })
+
+    res.status(201).json({
+        success: true,
+        message: "New Doctor Registered!",
+        doctor
+    })
 })
 
