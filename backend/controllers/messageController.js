@@ -21,6 +21,9 @@ export const sendMessage = catchAsyncErrors(async(req, res, next) => {
 
 export const getAllMessages = catchAsyncErrors(async(req, res) => {
     const messages = await Message.find();
+    if(!messages) {
+        return next(new ErrorHandler("No Messages Found!", 404))
+    }
     res.status(200).json({
         success: true,
         messages
