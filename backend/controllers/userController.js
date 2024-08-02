@@ -12,7 +12,7 @@ export const registerPatient = catchAsyncErrors(async(req, res, next) => {
     
         let user = await User.findOne({email});
         if(user) {
-            return next(new ErrorHandler("User Already Registered!", 400))
+            return next(new ErrorHandler("User Already Registered(Email Already Taken)!", 400))
         } 
     
         user = await User.create({
@@ -73,7 +73,7 @@ export const addAdmin = catchAsyncErrors(async(req, res, next) => {
 
     res.status(200).json({
         success: true,
-        message: "New Admin Registered!"
+        message: "New Admin Registered!"    
     })
 })
 
@@ -122,7 +122,7 @@ export const addNewDoctor = catchAsyncErrors(async(req, res, next) => {
         return next(new ErrorHandler("Doctor Avatar Required!", 400))
     }
     const {docAvatar} = req.files;
-    const allowedFormats = ["/image/png", "/image/jpeg", "/image/webp"];
+    const allowedFormats = ["image/png", "image/jpeg", "image/webp", "image/jpg"];
     if(!allowedFormats.includes(docAvatar.mimetype)){
         return next(new ErrorHandler("File Format Not Supported!", 400));
     }
