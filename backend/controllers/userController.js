@@ -53,7 +53,7 @@ export const loginPatient = catchAsyncErrors(async(req, res, next) =>  {
         return next(new ErrorHandler(`User With ${role} Role Not Found!`, 400))
     }
 
-    generateToken(user, "User Logged In Successfully!", 200, res)
+    generateToken(user, `${user.role} Logged In Successfully!`, 200, res)
 })
 
 export const addAdmin = catchAsyncErrors(async(req, res, next) => {
@@ -113,7 +113,17 @@ export const logoutPatient = catchAsyncErrors(async(req, res, next) => {
         expiresIn: new Date(Date.now())
     }).json({
         success: true,
-        message: "Patient logged In"
+        message: "Patient Logged Out Successfully!"
+    })
+});
+
+export const logoutDoctor = catchAsyncErrors(async(req, res, next) => {
+    res.status(204).cookie("doctorToken", "", {
+        httpOnly: true,
+        expiresIn: new Date(Date.now())
+    }).json({
+        success: true,
+        message: "Doctor Logged Out Successfully!"
     })
 })
 
