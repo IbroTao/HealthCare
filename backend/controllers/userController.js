@@ -138,9 +138,38 @@ export const addNewDoctor = catchAsyncErrors(async(req, res, next) => {
     }
 
     const {firstName, lastName, email, password, phone, gender, dob, nic, doctorDepartment} = req.body;
-    if(!firstName || !lastName || !email || !password || !phone || !gender || !dob || !nic || !doctorDepartment) {
-        return next(new ErrorHandler("Please Fill Full Form!", 400))
-    };
+    // if(!firstName || !lastName || !email || !password || !phone || !gender || !dob || !nic || !doctorDepartment) {
+    //     return next(new ErrorHandler("Please Fill Full Form!", 400))
+    // };
+
+            
+        if (!firstName) {
+            return next(new ErrorHandler("First name is required", 400));
+        }
+        if (!lastName) {
+            return next(new ErrorHandler("Last name is required", 400));
+        }
+        if (!email) {
+            return next(new ErrorHandler("Email is required", 400));
+        }
+        if (!password) {
+            return next(new ErrorHandler("Password is required", 400));
+        }
+        if (!phone) {
+            return next(new ErrorHandler("Phone number is required", 400));
+        }
+        if (!gender) {
+            return next(new ErrorHandler("Gender is required", 400));
+        }
+        if (!dob) {
+            return next(new ErrorHandler("Date of birth is required", 400));
+        }
+        if (!nic) {
+            return next(new ErrorHandler("NIC is required", 400));
+        }
+        if (!doctorDepartment) {
+            return next(new ErrorHandler("Doctor department is required", 400));
+        }
 
     const isRegistered = await User.findOne({email});
     if(isRegistered) {
