@@ -125,7 +125,7 @@ export const logoutDoctor = catchAsyncErrors(async(req, res, next) => {
         success: true,
         message: "Doctor Logged Out Successfully!"
     })
-})
+});
 
 export const addNewDoctor = catchAsyncErrors(async(req, res, next) => {
     if(!req.files || !Object.keys(req.files).length === 0){
