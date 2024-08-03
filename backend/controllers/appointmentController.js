@@ -66,3 +66,15 @@ export const bookAppointment = catchAsyncErrors(async(req, res) => {
         message: "Appointment Boooked Successfully!"
     })
 }) 
+
+export const getAllAppointments = catchAsyncErrors(async(req, res) => {
+    const appointments = await Appointment.find();
+    if(!appointments) {
+        return next(new ErrorHandler("No Appointments Booked!", 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        appointments
+    })
+})
