@@ -78,5 +78,12 @@ const appointmentSchema = new mongoose.Schema({
     address: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        enum: ["Accepted", "Pending", "Rejected"],
+        default: "Pending"
     }
-})
+});
+
+export const Appointment = mongoose.model("Appointment", appointmentSchema);
