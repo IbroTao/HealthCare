@@ -11,7 +11,8 @@ import { dbConnect } from "./database/dbConnect.js";
 
 // ROUTES CONFIGURATION
 import messageRouter from "./routes/messageRoutes.js";
-import userRouter from "./routes/userRouter.js"
+import userRouter from "./routes/userRouter.js";
+import appointmentRouter from "./routes/appointmentRoutes.js"
 
 // MIDDLEWARE CONFIGURATION
 import { errorMiddleware } from "./middlewares/errorMiddlewares.js";
@@ -52,6 +53,7 @@ app.use(fileUploader({
 
 app.use('/api/v1/user', userRouter)
 app.use("/api/v1/message", messageRouter);
+app.use("/api/v/appointment", appointmentRouter)
 
 app.use(errorMiddleware);
 export default app;
