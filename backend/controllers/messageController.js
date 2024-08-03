@@ -20,7 +20,7 @@ export const sendMessage = catchAsyncErrors(async(req, res, next) => {
 })
 
 export const getAllMessages = catchAsyncErrors(async(req, res) => {
-    const messages = await Message.find();
+    const messages = await Message.find({});
     if(!messages) {
         return next(new ErrorHandler("No Messages Found!", 404))
     }
@@ -30,3 +30,6 @@ export const getAllMessages = catchAsyncErrors(async(req, res) => {
     })
 })
 
+export const getSingleMessage = catchAsyncErrors(async(req, res) => {
+    
+})
