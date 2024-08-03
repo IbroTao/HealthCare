@@ -4,7 +4,7 @@ import {isAdminAuthenticated, isPatientAuthenticated} from "../middlewares/auth.
 
 const router = express.Router();
 
-router.post('/book', isPatientAuthenticated, bookAppointment);
 router.get('/all', isAdminAuthenticated, getAllAppointments);
+router.post('/book', isPatientAuthenticated, bookAppointment);
 
 export default router;
