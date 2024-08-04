@@ -5,10 +5,10 @@ import {Appointment} from "../models/appointmentModel.js"
 
 export const bookAppointment = catchAsyncErrors(async (req, res, next) => {
     const { firstName, lastName, email, phone, dob, nic, gender, appointment_date, 
-        department, doctor_firstName, doctor_lastName } = req.body;
+        department, doctor_firstName, doctor_lastName, address } = req.body;
 
     if (!firstName || !lastName || !email || !phone || !dob || !nic 
-        || !gender || !appointment_date || !department || !doctor_firstName || !doctor_lastName) {
+        || !gender || !appointment_date || !department || !doctor_firstName || !doctor_lastName || !address) {
         return next(new ErrorHandler("Please Fill Full Form", 400));
     }
 
@@ -37,7 +37,6 @@ export const bookAppointment = catchAsyncErrors(async (req, res, next) => {
         phone,
         dob,
         nic,
-        hasVisited,
         gender,
         appointment_date,
         department,
@@ -47,6 +46,7 @@ export const bookAppointment = catchAsyncErrors(async (req, res, next) => {
         },
         doctorId,
         patientId,
+        address,
         hasVisited: false
     });
 

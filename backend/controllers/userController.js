@@ -26,7 +26,7 @@ export const registerPatient = catchAsyncErrors(async(req, res, next) => {
             gender,
             phone
         });
-        generateToken(user, "User Registered!", 200, res)
+        generateToken(user, "User Registered!", 201, res)
 });
 
 export const loginPatient = catchAsyncErrors(async(req, res, next) =>  {
@@ -71,7 +71,7 @@ export const addAdmin = catchAsyncErrors(async(req, res, next) => {
         firstName, lastName, email, password, phone, dob, gender, nic, role: "Admin"
     });
 
-    generateToken(admin, `${admin.role} Logged In Successfully!`, 200, res)
+    generateToken(admin, `${admin.role} Created Successfully!`, 201, res)
 })
 
 export const getAllDoctors = catchAsyncErrors(async(req, res, next) => {
@@ -185,7 +185,7 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
         }
     });
 
-    generateToken(doctor, `${doctor.role} Logged In Successfully!`, 201)
+    generateToken(doctor, `${doctor.role} Logged In Successfully!`, 201, res)
 });
 
 
