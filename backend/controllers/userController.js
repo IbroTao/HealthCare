@@ -71,10 +71,7 @@ export const addAdmin = catchAsyncErrors(async(req, res, next) => {
         firstName, lastName, email, password, phone, dob, gender, nic, role: "Admin"
     });
 
-    res.status(200).json({
-        success: true,
-        message: "New Admin Registered!"    
-    })
+    generateToken(admin, `${admin.role} Logged In Successfully!`, 200, res)
 })
 
 export const getAllDoctors = catchAsyncErrors(async(req, res, next) => {
@@ -91,6 +88,9 @@ export const getAllDoctors = catchAsyncErrors(async(req, res, next) => {
 
 export const getUserDetails = catchAsyncErrors(async(req, res, next) => {
     const user = req.user;
+    if(!user) {
+        return next(new ErrorHandler("User Not Found!", 404))
+    }
     res.status(200).json({
         success: true,
         user
@@ -127,67 +127,52 @@ export const logoutDoctor = catchAsyncErrors(async(req, res, next) => {
     })
 });
 
-export const addNewDoctor = catchAsyncErrors(async(req, res, next) => {
-    if(!req.files || !Object.keys(req.files).length === 0){
-        return next(new ErrorHandler("Doctor Avatar Required!", 400))
+export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
+    // Check if files were uploaded
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return next(new ErrorHandler("Doctor Avatar Required!", 400));
     }
-    const {docAvatar} = req.files;
+    
+    const { docAvatar } = req.files;
     const allowedFormats = ["image/png", "image/jpeg", "image/webp", "image/jpg"];
-    if(!allowedFormats.includes(docAvatar.mimetype)){
+    
+    // Check file format
+    if (!allowedFormats.includes(docAvatar.mimetype)) {
         return next(new ErrorHandler("File Format Not Supported!", 400));
     }
 
-    const {firstName, lastName, email, password, phone, gender, dob, nic, doctorDepartment} = req.body;
-    // if(!firstName || !lastName || !email || !password || !phone || !gender || !dob || !nic || !doctorDepartment) {
-    //     return next(new ErrorHandler("Please Fill Full Form!", 400))
-    // };
+    const { firstName, lastName, email, password, phone, gender, dob, nic, doctorDepartment } = req.body;
 
-            
-        if (!firstName) {
-            return next(new ErrorHandler("First name is required", 400));
-        }
-        if (!lastName) {
-            return next(new ErrorHandler("Last name is required", 400));
-        }
-        if (!email) {
-            return next(new ErrorHandler("Email is required", 400));
-        }
-        if (!password) {
-            return next(new ErrorHandler("Password is required", 400));
-        }
-        if (!phone) {
-            return next(new ErrorHandler("Phone number is required", 400));
-        }
-        if (!gender) {
-            return next(new ErrorHandler("Gender is required", 400));
-        }
-        if (!dob) {
-            return next(new ErrorHandler("Date of birth is required", 400));
-        }
-        if (!nic) {
-            return next(new ErrorHandler("NIC is required", 400));
-        }
-        if (!doctorDepartment) {
-            return next(new ErrorHandler("Doctor department is required", 400));
-        }
+    // Check for missing fields
+    if (!firstName) return next(new ErrorHandler("First name is required", 400));
+    if (!lastName) return next(new ErrorHandler("Last name is required", 400));
+    if (!email) return next(new ErrorHandler("Email is required", 400));
+    if (!password) return next(new ErrorHandler("Password is required", 400));
+    if (!phone) return next(new ErrorHandler("Phone number is required", 400));
+    if (!gender) return next(new ErrorHandler("Gender is required", 400));
+    if (!dob) return next(new ErrorHandler("Date of birth is required", 400));
+    if (!nic) return next(new ErrorHandler("NIC is required", 400));
+    if (!doctorDepartment) return next(new ErrorHandler("Doctor department is required", 400));
 
-    const isRegistered = await User.findOne({email});
-    if(isRegistered) {
-        return next(new ErrorHandler(`${isRegistered.role} already registered with this email`, 400))
+    // Check if user is already registered
+    const isRegistered = await User.findOne({ email });
+    if (isRegistered) {
+        return next(new ErrorHandler(`${isRegistered.role} already registered with this email`, 400));
     }
 
-    const cloudinaryResponse = await cloudinary.v2.uploader.upload(
-        docAvatar.tempFilePath
-    );
-    if(!cloudinaryResponse || cloudinaryResponse.error){
-        console.error("Cloudinary Error:", cloudinaryResponse.error || "Unknown Cloudinary Error")
+    // Upload to Cloudinary
+    const cloudinaryResponse = await cloudinary.v2.uploader.upload(docAvatar.tempFilePath);
+    if (!cloudinaryResponse || cloudinaryResponse.error) {
+        console.error("Cloudinary Error:", cloudinaryResponse.error || "Unknown Cloudinary Error");
+        return next(new ErrorHandler("Cloudinary upload failed", 500));
     }
 
+    // Create new doctor
     const doctor = await User.create({
         firstName,
         lastName,
-        password, 
-        email, 
+        password,
+        email,
         phone,
         dob,
         nic,
@@ -198,12 +183,9 @@ export const addNewDoctor = catchAsyncErrors(async(req, res, next) => {
             public_id: cloudinaryResponse.public_id,
             url: cloudinaryResponse.secure_url,
         }
-    })
+    });
 
-    res.status(201).json({
-        success: true,
-        message: "New Doctor Registered!",
-        doctor
-    })
-})
+    generateToken(doctor, `${doctor.role} Logged In Successfully!`, 201)
+});
+
 
