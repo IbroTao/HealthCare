@@ -7,5 +7,6 @@ export const MESSAGES = {
     PASSWORD_NO_MATCH: "password does not match",
     INVALID_DETAILS: "invalid user's username or password",
     WRONG_FILE_FORMAT: "file format not supported",
-    PROVIDE_IMAGE: "image required"
+    PROVIDE_IMAGE: "image required",
+    UPDATE: "updated successfully"
 }

@@ -2,6 +2,7 @@ import {catchAsyncErrors} from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/errorMiddlewares.js";
 import {User} from "../models/userModel.js";
 import {Appointment} from "../models/appointmentModel.js"
+import { MESSAGES } from "../constants/responsesMessages.js";
 
 export const bookAppointment = catchAsyncErrors(async (req, res, next) => {
     const { firstName, lastName, email, phone, dob, nic, gender, appointment_date, 
@@ -81,7 +82,9 @@ export const updateAppointment = catchAsyncErrors(async(req, res) => {
         new: true,
         runValidators: true,
         useFindAndModify: true
-    })
+    });
+
+    res
 })
 
 // CAN ONLY BE UPDATED BY ADMINS AND DOCTORS
@@ -103,6 +106,10 @@ export const updateAppointmentStatus = catchAsyncErrors(async(req, res) => {
         return next(new ErrorHandler("Appointment Not Found!", 404))
     };
 
-    res.status
+    res.status(200).json({
+        success: true,
+        message: `appointment ${MESSAGES.UPDATE}`,
+        appointment
+    })
 })
 
