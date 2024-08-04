@@ -81,5 +81,11 @@ export const getAllAppointments = catchAsyncErrors(async(req, res) => {
 
 export const updateAppointment = catchAsyncErrors(async(req, res) => {
     const {id} = req.params;
+    const appointment = await Appointment.findByIdAndUpdate({id}, {
+        new: true
+    });
+    if(!appointment) {
+        return next(new ErrorHandler("Appointment Not Found!", 404))
+    }
 })
 
