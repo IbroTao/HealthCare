@@ -69,13 +69,40 @@ export const getAllAppointments = catchAsyncErrors(async(req, res) => {
     })
 });
 
+// CAN BE DONE BY PATIENTS IF THERE ARE MISTAKES TO BE OMITTED
 export const updateAppointment = catchAsyncErrors(async(req, res) => {
     const {id} = req.params;
-    const appointment = await Appointment.findByIdAndUpdate({id}, {
-        new: true
+    let appointment = await Appointment.findById(id);
+    if(!appointment) {
+        return next(new ErrorHandler("Appointment Not Found!", 404));
+    }
+
+    appointment = await Appointment.findByIdAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: true
+    })
+})
+
+// CAN ONLY BE UPDATED BY ADMINS AND DOCTORS
+export const updateAppointmentStatus = catchAsyncErrors(async(req, res) => {
+    const {id} = req.params;
+    let appointment = await Appointment.findById(id);
+    if(!appointment) {
+        return next(new ErrorHandler("Appointment Not Found!", 404))
+    };
+    
+    appointment = await Appointment.findByIdAndUpdate(id, {
+        status: "Accepted"
+    }, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: true
     });
     if(!appointment) {
         return next(new ErrorHandler("Appointment Not Found!", 404))
-    }
+    };
+
+    res.status
 })
 
