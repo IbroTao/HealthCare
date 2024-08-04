@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import {modelNames} from "../constants/modelNames.js"
 
 const appointmentModel = new mongoose.Schema({
     firstName: {
@@ -85,4 +86,4 @@ const appointmentModel = new mongoose.Schema({
     }
 });
 
-export const Appointment = mongoose.model("Appointment", appointmentModel);
+export const Appointment = mongoose.model(modelNames.appointment, appointmentModel);

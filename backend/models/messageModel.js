@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import {modelNames} from "../constants/modelNames.js"
 
 const messageSchema = new mongoose.Schema({
     firstName:{
@@ -30,4 +31,4 @@ const messageSchema = new mongoose.Schema({
     }
 });
 
-export const Message = mongoose.model("Message", messageSchema)
+export const Message = mongoose.model(modelNames.message, messageSchema)

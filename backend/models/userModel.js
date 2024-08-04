@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
+import {modelNames} from "../constants/modelNames.js"
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -78,4 +79,4 @@ userSchema.methods.generateWebToken = function() {
     })
 }
 
-export const User = mongoose.model("User", userSchema)
+export const User = mongoose.model(modelNames.user, userSchema)
