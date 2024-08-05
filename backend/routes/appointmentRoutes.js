@@ -7,6 +7,6 @@ const router = express.Router();
 router.get('/all', isAdminAuthenticated, getAllAppointments);
 router.post('/book', isPatientAuthenticated, bookAppointment)
 router.put('/doctor/update/status/:id', isAdminAuthenticated, updateAppointmentStatus);;
-router.put('/patient/update/status/:id', isPatientAuthenticated, updateAppointment)
+router.put('/patient/update/:id', isPatientAuthenticated, updateAppointment)
 
 export default router;  
