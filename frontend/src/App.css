@@ -64,13 +64,13 @@ h6 {
     font-weight: 900;
   }
 }
-.container {
-  padding: 0 100px;
-}
 @media (max-width: 700px) {
   .container {
     padding: 0 20px;
   }
+}
+.container {
+  padding: 0 100px;
 }
 .hero {
   display: flex;
