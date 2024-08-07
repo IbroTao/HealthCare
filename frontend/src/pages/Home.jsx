@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
         <Hero title={"Welcome to DivexCare Medical Institute | Your Trusted Health Care Partner"} imageUrl={"/hero.png"}/>
-        <Biography/>
+        <Biography imageUrl={"/about.png"}/>
         <Departments/>
         <MessageForm/>
     </>
