@@ -4,7 +4,15 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 
 const App = () => {
   return (
-    <div></div>
+    <div>
+      <>
+        <Router>
+          <Routes>
+            <Route/>
+          </Routes>
+        </Router>
+      </>
+    </div>
   )
 }
 
