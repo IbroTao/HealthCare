@@ -458,7 +458,7 @@ nav .navLinks {
 }
 nav .navLinks .links {
   display: flex;
-  gap: 25px;
+  gap: 100px;
 }
 nav .navLinks .links a {
   text-decoration: none;
