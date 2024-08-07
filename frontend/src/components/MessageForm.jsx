@@ -1,3 +1,4 @@
+import axios from "axios"
 import React, { useState } from 'react'
 
 const MessageForm = () => {
@@ -6,8 +7,13 @@ const MessageForm = () => {
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [message, setMessage] = useState("")
-  const handleMessage = (e) => {
+  const handleMessage = async(e) => {
     e.preventDefault();
+    try{
+      await axios.post("", {}, {withCredentials: true, headers: {
+        "Content-Type": "application/json"
+      }})
+    }catch(error) {};
   }
   return (
     <div className='container form-component message-form'>
