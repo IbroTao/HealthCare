@@ -23,7 +23,7 @@ const MessageForm = () => {
       })
     }catch(error) {
       toast.error(error.response.data.message)
-    };
+    }
   }
   return (
     <div className='container form-component message-form'>
