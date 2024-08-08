@@ -26,8 +26,8 @@ const Login = () => {
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui laborum amet atque libero. Fugiat, animi.</p>
             <form onSubmit={handleLogin}>
                 <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email'/>
-                <input type="password" value={password} onChange={(e) => setEmail(e.target.value)} placeholder='Email'/>
-                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email'/>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password'/>
+                <input type="password" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email'/>   
                 <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email'/>
             </form>
         </div>
