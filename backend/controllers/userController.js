@@ -7,14 +7,14 @@ import {allowedFormats} from "../constants/imageFormats.js";
 import cloudinary from "cloudinary";
 
 export const registerPatient = catchAsyncErrors(async(req, res, next) => {
-        const {firstName, lastName, phone, email, password, dob, nic, role, gender} = req.body;
-        if(!firstName || !lastName || !phone || !email || !password || !dob || !nic || !role || !gender) {
+        const {firstName, lastName, phone, email, password, dob, nic, gender} = req.body;
+        if(!firstName || !lastName || !phone || !email || !password || !dob || !nic || !gender) {
             return next(new ErrorHandler(MESSAGES.FILL_FULL_FORM, 400))
         }
     
         let user = await User.findOne({email});
         if(user) {
-            return next(new ErrorHandler("!", 400))
+            return next(new ErrorHandler("Email Already Taken!", 400))
         } 
     
         user = await User.create({
@@ -24,9 +24,9 @@ export const registerPatient = catchAsyncErrors(async(req, res, next) => {
             dob,
             password,
             nic,
-            role,
             gender,
-            phone
+            phone,
+            role: "Patient"
         });
         generateToken(user, MESSAGES.SUCCESS, 201, res)
 });
