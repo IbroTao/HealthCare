@@ -1,6 +1,8 @@
 import React, {useState, useContext} from 'react'
 import {Context} from '../main'
-import {Navigate, useNavigate} from "react-router-dom"
+import {Navigate, useNavigate, Link} from "react-router-dom"
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const {isAuthenticated, setIsAuthenticated} = useContext(Context);
@@ -16,8 +18,24 @@ const Register = () => {
 
   const navigateTo = useNavigate();
 
-  const handleRegister = async(e) => {
-    e.preventDefault()
+  const handleRegister = async(e) => {  
+    e.preventDefault();
+    try {
+      const response = await axios
+        .post(
+          "http://localhost:4000/api/v1/user/new",
+          { email, password, firstName, lastName, gender, dob, nic, phone, role: "Patient" },
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        toast.success(response.data.message);
+        setIsAuthenticated(true);
+        navigateTo("/")
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
   if(isAuthenticated) {
@@ -49,6 +67,24 @@ const Register = () => {
           <option value="Female">Female</option>
         </select>
       </div>
+      <div
+            style={{
+              gap: "10px",
+              justifyContent: "flex-end",
+              flexDirection: "row",
+            }}
+          >
+            <p style={{ marginBottom: 0 }}>Already Registered?</p>
+            <Link
+              to={"/register"}
+              style={{ textDecoration: "none", color: "#271776ca" }}
+            >
+              Login Now
+            </Link>
+          </div>
+          <div style={{ justifyContent: "center", alignItems: "center" }}>
+            <button type="submit">Register</button>
+          </div>
     </form>
   </div>
 }
