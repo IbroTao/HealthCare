@@ -47,7 +47,7 @@ const Navbar = () => {
               About Us
             </Link>
           </div>
-          {isAuthenticated ? (
+          {!isAuthenticated ? (
             <button className="logoutBtn btn" onClick={handleLogout}>
               LOGOUT
             </button>

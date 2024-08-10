@@ -77,16 +77,16 @@ const Login = () => {
               flexDirection: "row",
             }}
           >
-            <p style={{ marginBottom: 0 }}>Already Registered?</p>
+            <p style={{ marginBottom: 0 }}>Not Registered?</p>
             <Link
               to={"/register"}
               style={{ textDecoration: "none", color: "#271776ca" }}
             >
-              Login Now
+              Register Now
             </Link>
           </div>
           <div style={{ justifyContent: "center", alignItems: "center" }}>
-            <button type="submit">Register</button>
+            <button type="submit">Login</button>
           </div>
         </form>
       </div>

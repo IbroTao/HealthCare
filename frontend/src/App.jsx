@@ -28,7 +28,7 @@ const App = () => {
       }
     };
     fetchUser();
-  }, [isAuthenticated])
+  }, [isAuthenticated, setIsAuthenticated, setUser])
   
   return (
     <div>

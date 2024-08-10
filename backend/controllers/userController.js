@@ -8,9 +8,25 @@ import cloudinary from "cloudinary";
 
 export const registerPatient = catchAsyncErrors(async(req, res, next) => {
         const {firstName, lastName, phone, email, password, dob, nic, gender, role} = req.body;
-        if(!firstName || !lastName || !phone || !email || !password || !dob || !nic || !gender || !role) {
-            return next(new ErrorHandler(MESSAGES.FILL_FULL_FORM, 400))
+        const fields = {
+            firstName: 'First name is required',
+            lastName: 'Last name is required',
+            phone: 'Phone number is required',
+            email: 'Email is required',
+            password: 'Password is required',
+            dob: 'Date of birth is required',
+            nic: 'NIC is required',
+            gender: 'Gender is required',
+            role: 'Role is required'
+        };
+        
+        for (const [field, message] of Object.entries(fields)) {
+            if (!req.body[field]) {
+                return next(new ErrorHandler(message, 400));
+            }
         }
+        
+        // Continue with the rest of the code if all fields are filled        
     
         let user = await User.findOne({email});
         if(user) {
