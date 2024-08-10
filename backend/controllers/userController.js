@@ -7,8 +7,8 @@ import {allowedFormats} from "../constants/imageFormats.js";
 import cloudinary from "cloudinary";
 
 export const registerPatient = catchAsyncErrors(async(req, res, next) => {
-        const {firstName, lastName, phone, email, password, dob, nic, gender} = req.body;
-        if(!firstName || !lastName || !phone || !email || !password || !dob || !nic || !gender) {
+        const {firstName, lastName, phone, email, password, dob, nic, gender, role} = req.body;
+        if(!firstName || !lastName || !phone || !email || !password || !dob || !nic || !gender || !role) {
             return next(new ErrorHandler(MESSAGES.FILL_FULL_FORM, 400))
         }
     
