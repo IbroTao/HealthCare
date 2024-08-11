@@ -5,10 +5,12 @@ import Biography from "../components/Biography"
 const AboutUs = () => {
   return (
     <>
-      <Hero title={"Learn More About Us | Divex Medical Institute"}/>
-      <Biography/>
+      <Hero title={"Learn More About Us | Divex Medical Institute"} imageUrl={"/about.png"}/>
+      <Biography imageUrl={"/whoweare.png"}/>
     </>
   )
 }
+
+
 
 export default AboutUs
