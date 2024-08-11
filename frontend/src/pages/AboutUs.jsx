@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import Hero from "../components/Hero"
+import Biography from "../components/Biography"
 
 const AboutUs = () => {
   return (
     <>
-      <Hero>Learn More About Us | Divex Medical Institute</Hero>
+      <Hero title={"Learn More About Us | Divex Medical Institute"}/>
+      <Biography/>
     </>
   )
 }
