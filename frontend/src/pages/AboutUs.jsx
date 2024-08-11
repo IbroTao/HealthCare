@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import {Context} from '../main'
+import Hero from "../components/Hero"
 
 const AboutUs = () => {
-
-  const [isAuthenticated, setIsAuthenticated] = useContext(Context)
   return (
-    <div>AboutUs</div>
+    <>
+      <Hero>Learn More About Us | Divex Medical Institute</Hero>
+    </>
   )
 }
 
