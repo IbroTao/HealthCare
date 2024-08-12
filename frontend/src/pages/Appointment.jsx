@@ -4,7 +4,7 @@ import Hero from '../components/Hero'
 
 const Appointment = () => {
   return <>
-    <Hero title={"Schedule Your Appointment | DivexCare Medicl Institute"} imageUrl={"./hero.png"}/>
+    <Hero title={"Schedule Your Appointment | DivexCare Medical Institute"} imageUrl={"/signin.png"}/>
     <AppointmentForm/>
   </>
 }
